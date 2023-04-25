@@ -6,6 +6,7 @@ import {
 } from '../actions'
 
 function *GetDogList() {
+  console.log('getdoglist sagaaa')
   let data =  yield fetch('https://dog.ceo/api/breeds/list/all');
   data =  yield data.json();
 }
@@ -13,14 +14,13 @@ function *GetDogList() {
 function *GetDogBreed({payload}) {
   let data =  yield fetch(`https://dog.ceo/api/breed/${payload}/images`);
   data =  yield data.json();
-  return
 }
 
 
-function *GetCounter({payload}) {
-  let data =  yield fetch('https://react-002-4a2b9-default-rtdb.firebaseio.com/');
+function *GetVote({payload}) {
+  console.log(payload, 'is saga is working')
+  let data =  yield fetch(`http://localhost:5000/dogsBreed/${payload}`);
   data =  yield data.json();
-  return
 }
 
 
@@ -29,6 +29,6 @@ function *GetCounter({payload}) {
 export default function *() {
   yield takeEvery('DOG_LIST_REQUESTED', GetDogList)
   yield takeEvery('DOG_SPECIFIC_REQUESTED', GetDogBreed)
-  yield takeEvery('DOG_COUNTER', GetCounter)
+  yield takeEvery('DOG_VOTED_REQUESTED', GetVote)
 
 }
